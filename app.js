@@ -1,9 +1,15 @@
+require('dotenv').config();
+
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const Script = require('./models/script.model.js');
 const scriptRoute = require('./routes/script.route.js');
 const app = express();
 
+const port = process.env.PORT || 3002;
+
+app.use(cors());
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -16,13 +22,11 @@ app.get('/', (req, res) => {
 });
 
 mongoose
-  .connect(
-    'mongodb+srv://sharmabasket13:j1CPGpvyQZEqF2X2@automatordb.ic2fg.mongodb.net/Script-API?retryWrites=true&w=majority&appName=AutomatorDB'
-  )
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log('Connected to database!');
-    app.listen(3002, () => {
-      console.log('Server is running on port 3002');
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
   })
   .catch(() => {
