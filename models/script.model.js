@@ -29,6 +29,10 @@ const StepSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  id: {
+    type: String,
+    required: false,
+  },
 });
 
 const ScriptSchema = new mongoose.Schema(
